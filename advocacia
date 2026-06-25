@@ -51,8 +51,8 @@ CREATE TABLE DOCUMENTO(
 CREATE TABLE EQUIPE_PROCESSO(
 
     id_processo INT,
-    CONSTRAINT FK_processo_equipeprocesso FOREIGN KEY(id_processo) REFERENCES PROCESSO(id_processo),
+    CONSTRAINT id_processo FOREIGN KEY(id_processo) REFERENCES PROCESSO(id_processo),
     id_advogado INT,
-    CONSTRAINT FK_advogado_equipeprocesso FOREIGN KEY(id_advogado) REFERENCES ADVOGADO(id_processo),
+    CONSTRAINT id_advogado FOREIGN KEY(id_advogado) REFERENCES ADVOGADO(id_advogado),
     eh_lider TINYINT(1)
 );
