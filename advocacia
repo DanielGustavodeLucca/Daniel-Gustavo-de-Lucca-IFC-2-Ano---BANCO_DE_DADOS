@@ -1,0 +1,56 @@
+CREATE DATABASE ADVOCACIA;
+
+CREATE TABLE ADVOGADO(
+
+    id_advogado INT AUTO_INCREMENT PRIMARY KEY,
+    nome_advogado VARCHAR(100) NOT NULL,
+    oab VARCHAR(20)
+);
+
+CREATE TABLE CLIENTE(
+
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome_razao_social VARCHAR(100) NOT NULL,
+    contato VARCHAR(50)
+);
+
+CREATE TABLE PROCESSO(
+
+    id_processo INT AUTO_INCREMENT PRIMARY KEY,
+    numero_cnj VARCHAR(30) NOT NULL,
+    valor_da_causa DECIMAL(15,2),
+    instancia_atual INT,
+    id_cliente INT,
+    CONSTRAINT FK_cliente_processo FOREIGN KEY(id_cliente) REFERENCES CLIENTE(id_cliente),
+    parte_contraria VARCHAR(100)
+);
+
+CREATE TABLE audiencia(
+
+    id_audiencia INT AUTO_INCREMENT PRIMARY KEY,
+    id_processo INT,
+    CONSTRAINT FK_processo_audiencia FOREIGN KEY(id_processo) REFERENCES PROCESSO(id_processo),
+    data_hora_agendamento DATETIME,
+    sala_virtual_presencial VARCHAR(100),
+    resultado_ata TEXT,
+    status_comparecimento VARCHAR(20)
+);
+
+CREATE TABLE DOCUMENTO(
+
+    id_documento INT AUTO_INCREMENT PRIMARY KEY,
+    id_processo INT,
+    CONSTRAINT FK_processo_documento FOREIGN KEY(id_processo) REFERENCES PROCESSO(id_processo),
+    tipo_documento VARCHAR(50),
+    hash_digital VARCHAR(255),
+    data_anexo DATE
+);
+
+CREATE TABLE EQUIPE_PROCESSO(
+
+    id_processo INT,
+    CONSTRAINT FK_processo_equipeprocesso FOREIGN KEY(id_processo) REFERENCES PROCESSO(id_processo),
+    id_advogado INT,
+    CONSTRAINT FK_advogado_equipeprocesso FOREIGN KEY(id_advogado) REFERENCES ADVOGADO(id_processo),
+    eh_lider TINYINT(1)
+);
