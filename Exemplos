@@ -1,0 +1,26 @@
+Gabarito
+-- 1. Adicionar coluna status_ativo
+ALTER TABLE advogado
+ADD COLUMN status_ativo INT;
+
+-- 2. Modificar tipo de dado para VARCHAR(150)
+ALTER TABLE documento
+MODIFY COLUMN tipo_documento VARCHAR(150);
+
+-- 3. Excluir coluna resultado_ata
+ALTER TABLE audiencia
+DROP COLUMN resultado_ata;
+
+-- 4. Adicionar restrição UNIQUE
+ALTER TABLE processo
+ADD CONSTRAINT uk_numero_cnj UNIQUE (numero_cnj);
+
+-- 5. Renomear coluna (Sintaxe compatível com MySQL 5.7)
+ALTER TABLE cliente
+CHANGE contato telefone_contato VARCHAR(50);
+
+-- 6. Adicionar coluna e chave estrangeira
+ALTER TABLE processo
+ADD COLUMN id_tipo_processo INT,
+ADD CONSTRAINT fk_processo_tipo FOREIGN KEY (id_tipo_processo)
+REFERENCES tipo_processo(id_tipo);
